@@ -1,32 +1,13 @@
 version: "2.1"
 
 volumes:
-  filebrowser:
-  scripts:
+  dispenser:
 
 services:
-  filebrowser:
-    build: ./filebrowser
-    container_name: "filebrowser"
-    user: "1000:1000"
-    privileged: true
-    volumes:
-      - 'filebrowser:/config'
-      - 'filebrowser:/data/config/filebrowser'
-      - 'scripts:/data/scripts'
-    environment:
-      PUID: '1000'
-      PGID: '1000'
-    network_mode: host
-    restart: unless-stopped
-
-  python:
-    build: ./python
-    container_name: "python"
+  dispenser:
+    build: ./dispenser
+    container_name: "dispenser"
     restart: "no"
     privileged: true
-    volumes:
-      - scripts:/scripts
-    network_mode: host
     labels:
       io.balena.features.supervisor-api: 1
