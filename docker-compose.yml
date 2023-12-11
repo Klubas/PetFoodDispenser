@@ -7,7 +7,7 @@ services:
   dispenser:
     build: ./dispenser
     container_name: "dispenser"
-    restart: "no"
+    restart: "unless-stopped"
     privileged: true
     labels:
       io.balena.features.supervisor-api: 1
