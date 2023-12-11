@@ -4,15 +4,12 @@ import schedule
 from datetime import datetime
 from Servo import Servo
 
-OPEN_SECONDS = float(os.getenv('OPEN_SECONDS', default=2))
-OPEN_ANGLE = float(os.getenv('OPEN_ANGLE', default=30))
-CLOSE_ANGLE = float(os.getenv('CLOSE_ANGLE', default=0))
-
-TZ = os.getenv("TZ") 
-TZ = TZ if TZ else "America/Sao_Paulo"
-
-DEBUG = os.getenv("DEBUG")
-DEBUG = True if DEBUG == "1" else False
+OPEN_SECONDS   = float(os.getenv('OPEN_SECONDS', default=2))
+OPEN_ANGLE     = float(os.getenv('OPEN_ANGLE', default=30))
+CLOSE_ANGLE    = float(os.getenv('CLOSE_ANGLE', default=0))
+SCHEDULE_TIMES = os.getenv('SCHEDULE_TIMES', default="06:00,09:00,12:00,15:00,18:00,21:00").split(',')
+TZ             = os.getenv('TZ', default="America/Sao_Paulo") 
+DEBUG          = True if os.getenv('DEBUG', default=0) == "1" else False
 
 
 def date_time():
@@ -42,25 +39,29 @@ def task():
 
 
 def schedules():
-   schedule.every().day.at("06:00", TZ).do(job)
-   schedule.every().day.at("09:00", TZ).do(job)
-   schedule.every().day.at("12:00", TZ).do(job)
-   schedule.every().day.at("15:00", TZ).do(job)
-   schedule.every().day.at("18:00", TZ).do(job)
-   schedule.every().day.at("21:00", TZ).do(job)
+   for hour in SCHEDULE_TIMES:
+      schedule.every().day.at(hour, TZ).do(job)
+      print("Schedule created every day at " + hour + " TZ: " + TZ)
 
 
 if __name__ == "__main__":
-   # test 
-   if DEBUG:
-      print("Start (Test): " + date_time())
-      task()
-      print("End (Test): " + date_time())
+   try:
+      #test
+      if DEBUG:
+         print("Start (Test): " + date_time())
+         task()
+         print("End (Test): " + date_time())
 
-   # Create schedules
-   schedules()
+      # Create schedules
+      schedules()
 
-   # Run
-   while True:
-    schedule.run_pending()
-    time.sleep(1)
+      # Run schedules
+      while True:
+         schedule.run_pending()
+         time.sleep(1)
+
+   except KeyboardInterrupt:
+      print("Exiting...")
+   except Exception as e:
+      print("Unexpect error.")
+      print(str(e))
