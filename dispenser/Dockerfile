@@ -2,7 +2,7 @@ FROM balenalib/raspberrypi3-python:latest-build
 ENV UDEV=on
 
 RUN install_packages cron
-RUN pip3 install RPi.GPIO schedule
+RUN pip3 install RPi.GPIO schedule pytz
 
 COPY ./start.sh /
 COPY ./ServoControl/. /ServoControl/

@@ -12,9 +12,9 @@ class Servo:
       # duty entre 2 e 12
       print("Moving servo to " + str(angle) + " degree angle")
       self.servo.ChangeDutyCycle(2+(angle/18))
-      time.sleep(0.5)
+      time.sleep(0.2)
       self.servo.ChangeDutyCycle(0)
-      time.sleep(0.5)
+      time.sleep(0.2)
 
    def startup(self):
       print("Starting up...")
