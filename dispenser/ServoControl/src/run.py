@@ -46,7 +46,6 @@ def schedules():
    schedule.every().day.at("09:00", TZ).do(job)
    schedule.every().day.at("12:00", TZ).do(job)
    schedule.every().day.at("15:00", TZ).do(job)
-   schedule.every().day.at("15:45", TZ).do(job)
    schedule.every().day.at("18:00", TZ).do(job)
    schedule.every().day.at("21:00", TZ).do(job)
 
