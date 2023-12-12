@@ -1,5 +1,7 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%-python:latest-build
 ENV UDEV=on
+ENV EMULATED=1
+
 WORKDIR /usr/app
 
 COPY ./requirements.txt .
@@ -9,4 +11,4 @@ RUN pip3 install -r requirements.txt
 
 WORKDIR /usr/app/src
 #CMD ["python3", "run.py"]
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "-w", "1", "run:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "-w", "1", "run:app"]
