@@ -1,6 +1,6 @@
 import time
-#from src.controllers.ServoController import ServoController as Servo
-from src.config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
+#from controllers.ServoController import ServoController as Servo
+from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
 
 
 class DispenserController: 

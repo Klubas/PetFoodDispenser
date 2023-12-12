@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
-from src.controllers.DispenserController import DispenserController as Dispenser
-from src.config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
+from controllers.DispenserController import DispenserController as Dispenser
+from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
 
 
 class FoodDispenser(Resource):

@@ -5,10 +5,9 @@ from flask import Flask, send_from_directory
 from flask_restful import Api, Resource
 from flask_cors import CORS
 
-from src.views.Index import Index, Favicon
-from src.views.Dispenser import FoodDispenser
-
-from src.config.Parameters import DEBUG, HOSTNAME, PORT, EXPLAIN_TEMPLATE_LOADING, DISABLE_ERROR_BUNDLE
+from views.Index import Index, Favicon
+from views.Dispenser import FoodDispenser
+from config.Parameters import DEBUG, HOSTNAME, PORT, EXPLAIN_TEMPLATE_LOADING, DISABLE_ERROR_BUNDLE
 
 
 app = Flask(__name__)
@@ -61,7 +60,7 @@ def runApp():
     app.run(host=host, port=port, debug=debug)
 
 if __name__ == "__main__":
-   try:
-      runApp()
-   except (KeyboardInterrupt, SystemExit):
-      print("Exiting APP...")
+    try:
+        runApp()
+    except (KeyboardInterrupt, SystemExit):
+        print("Exiting APP...")

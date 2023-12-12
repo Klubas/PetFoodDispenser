@@ -1,4 +1,4 @@
-FROM balenalib/generic-amd64-python:latest-build
+FROM balenalib/raspberrypi3-python:latest-build
 ENV UDEV=on
 WORKDIR /usr/app
 
