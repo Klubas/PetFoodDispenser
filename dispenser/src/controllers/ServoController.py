@@ -2,7 +2,7 @@
 import time
 import RPi.GPIO as GPIO
 
-class Servo:
+class ServoController:
    def __init__(self, pin, mode=GPIO.BOARD):
       self.pin = pin
       self.mode = mode

@@ -9,5 +9,7 @@ services:
     container_name: "dispenser"
     restart: "unless-stopped"
     privileged: true
+    ports:
+      - 5000:5000
     labels:
       io.balena.features.supervisor-api: 1

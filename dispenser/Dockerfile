@@ -1,13 +1,12 @@
 FROM balenalib/raspberrypi3-python:latest-build
 ENV UDEV=on
 
-RUN install_packages cron
-RUN pip3 install RPi.GPIO schedule pytz
+WORKDIR /usr/app
+COPY ./requirements.txt .
+COPY ./src/. ./src/
 
-COPY ./start.sh /
-COPY ./ServoControl/. /ServoControl/
+RUN pip3 install -r requirements.txt
 
-RUN chmod a+x /start.sh
-
-ENTRYPOINT [ "/bin/bash" ]
-CMD [ "-c", "/start.sh"]
+WORKDIR /usr/app/src
+CMD ["python3", "run.py"]
+#CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:main"]
