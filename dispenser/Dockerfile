@@ -7,6 +7,7 @@ WORKDIR /usr/app
 COPY ./requirements.txt .
 COPY ./src/. ./src/
 
+RUN install_packages python3-opencv
 RUN pip3 install -r requirements.txt
 
 WORKDIR /usr/app/src

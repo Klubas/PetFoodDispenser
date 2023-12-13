@@ -1,26 +1,24 @@
-import os
 import glob
+import os
 from datetime import datetime
+
 from cv2 import VideoCapture, imshow, imwrite, waitKey, destroyWindow, CAP_V4L2
-from config.Parameters import ENABLE_CAMERA
+
 
 def get_camera():
-    for dev in reversed(glob.glob("/dev/video?")):
+    for dev in glob.glob("/dev/video?"):
         camera = VideoCapture(dev, CAP_V4L2)
-        source = dev
-        break
-    
-    if camera is None or not camera.isOpened():
-        raise Exception('Warning: unable to open video source: ' + source)
-    else:
-        return camera
-    
-    raise Exception("No cameras found")
+        if camera is None or not camera.isOpened():
+            continue
+        else:
+            return camera
+    raise Exception("No available cameras found")
+
 
 def date_time():
-   now = datetime.now()
-   dt_string = now.strftime("%Y-%m-%d %H:%M:%S%ms")
-   return dt_string
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S%ms")
+    return dt_string
 
 
 class Picture:
@@ -31,23 +29,24 @@ class Picture:
     def show(self):
         imshow(self.filename, self.image)
         print("Press any key to quit viewer")
-        waitKey(0) 
-        destroyWindow(self.filename) 
-    
+        waitKey(0)
+        destroyWindow(self.filename)
+
     def save(self, filename=None, path=None):
-        
-        path        = '.'           if path     is None else path
-        filename    = self.filename if filename is None else filename
-        
+
+        path = '../../Pictures/' if path is None else path
+        filename = self.filename if filename is None else filename
+
         try:
-            full_path = os.path.join(self.path, self.filename)
+            os.makedirs(path, exist_ok=True)
+            full_path = os.path.join(path, filename)
             imwrite(full_path, self.image)
             return full_path
         except Exception as e:
             print(e)
             return None
 
-       
+
 class CameraController:
     @staticmethod
     def capture():
@@ -58,9 +57,8 @@ class CameraController:
             if result:
                 filename = "capture-" + date_time() + ".png"
                 return Picture(filename, image)
-            else: 
+            else:
                 raise Exception("No image detected. Please! try again")
 
         except Exception as e:
             print(e)
-

@@ -9,3 +9,4 @@
 | SCHEDULE_TIMES | Horário de execução dos schedules (separado por ,)   |
 | TZ             | Timezone                                             |
 | DEBUG          | Modo debug (1\|0)                                    |
+
