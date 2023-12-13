@@ -1,8 +1,8 @@
 import time
 
-from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE, ENABLE_CAMERA
 from controllers.ServoController import ServoControllerFactory as Servo
 from controllers.CameraController import CameraController as Camera
+from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE, ENABLE_CAMERA, PICTURE_DIR
 
 
 class DispenserController:
@@ -27,5 +27,5 @@ class DispenserController:
             print("Trying to take a picture...")
             pic = Camera.capture()
             if pic:
-                path = pic.save()
+                path = pic.save(path=PICTURE_DIR)
                 print("Picture saved at: " + path)

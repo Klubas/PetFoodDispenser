@@ -42,3 +42,6 @@ TZ = \
 # CAMERA
 ENABLE_CAMERA = \
     True if getenv('ENABLE_CAMERA', default=0) == "1" else False
+
+PICTURE_DIR = \
+    getenv('PICTURE_DIR', default='../../Pictures/')

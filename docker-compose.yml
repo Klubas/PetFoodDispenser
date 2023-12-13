@@ -1,7 +1,7 @@
 version: "2.1"
 
 volumes:
-  dispenser:
+  pictures:
 
 services:
   dispenser:
@@ -9,6 +9,8 @@ services:
     container_name: "dispenser"
     restart: "unless-stopped"
     privileged: true
+    volumes:
+      - pictures:/pictures
     ports:
       - 80:80
     labels:

@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 from cv2 import VideoCapture, imshow, imwrite, waitKey, destroyWindow, CAP_V4L2
+from config.Parameters import PICTURE_DIR
 
 
 def get_camera():
@@ -34,7 +35,7 @@ class Picture:
 
     def save(self, filename=None, path=None):
 
-        path = '../../Pictures/' if path is None else path
+        path = PICTURE_DIR if path is None else path
         filename = self.filename if filename is None else filename
 
         try:

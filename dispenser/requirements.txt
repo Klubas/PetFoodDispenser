@@ -11,4 +11,4 @@ schedule==1.2.1
 Werkzeug==3.0.1
 RPi.GPIO
 gunicorn
-opencv-python
+opencv-python-headless

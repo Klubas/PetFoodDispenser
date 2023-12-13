@@ -110,13 +110,19 @@
          , '/api/dispenser/feed?open_angle=' + open_angle + '&close_angle=' + close_angle + '&open_seconds=' + open_seconds)
       }
 
+      submitFeed = (open_angle, close_angle, open_seconds) => {
+         buttonFeed.disabled=True
+         feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)
+         buttonFeed.disabled=False
+      }
+
       const openAngleInput   = document.getElementById('open-angle-input')
       const closeAngleInput  = document.getElementById('close-angle-input')
       const openSecondsInput = document.getElementById('open-seconds-input')
       const buttonFeed       = document.getElementById('feed-button')
 
       buttonFeed.addEventListener('click',
-         function(){feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)}
+         function(){submitFeed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)}
       )
 
    </script>

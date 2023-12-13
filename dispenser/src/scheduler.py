@@ -1,9 +1,13 @@
+"""
+Schedules module
+"""
+import os
 import time
 from datetime import datetime
 
 import schedule
 
-from config.Parameters import SCHEDULE_TIMES, TZ, DEBUG
+from config.Parameters import SCHEDULE_TIMES, TZ, DEBUG, PICTURE_DIR, ENABLE_CAMERA
 from controllers.DispenserController import DispenserController as Dispenser
 
 
@@ -19,15 +23,29 @@ def job():
     print("End: " + date_time())
 
 
+def purge_pictures():
+    print("Running purge job")
+    for root, dirs, files in os.walk(PICTURE_DIR):
+        for file in files:
+            filepath = os.path.join(PICTURE_DIR, file)
+            if os.path.getmtime(filepath) < datetime.now().timestamp() - 86400 * 7:
+                try:
+                    print("Deleting file " + filepath)
+                    os.remove(filepath)
+                except (FileNotFoundError, Exception) as fnf:
+                    print("ERROR: File " + filepath + " not deleted")
+
+
 # Run schedules
 def run_schedules():
     # create schedules
     for hour in SCHEDULE_TIMES:
         schedule.every().day.at(hour, TZ).do(job)
-        print("Schedule created every day at " + hour + " TZ: " + TZ)
+        print("Feed schedule created every day at " + hour + " TZ: " + TZ)
 
-    for _job in schedule.get_jobs():
-        print(_job)
+    if ENABLE_CAMERA:
+        schedule.every().saturday.do(purge_pictures)
+        print("Purge schedule created every saturday")
 
     # run loop
     while True:
@@ -35,13 +53,7 @@ def run_schedules():
         time.sleep(1)
 
 
-def test():
-    if DEBUG:
-        print("Start (Test): " + date_time())
-        Dispenser.dispense_food()
-        print("End (Test): " + date_time())
-
-
 if __name__ == "__main__":
-    test()
+    job()
+    purge_pictures()
     run_schedules()

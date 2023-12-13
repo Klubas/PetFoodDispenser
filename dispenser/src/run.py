@@ -1,9 +1,12 @@
+"""
+Service must be start by this module
+"""
 import signal
 import sys
 from threading import Thread
 
 from app import runapp, app
-from scheduler import run_schedules, test
+from scheduler import run_schedules
 
 
 def signal_handler(signal, frame):
@@ -12,7 +15,7 @@ def signal_handler(signal, frame):
 
 
 app = app
-test()
+
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)

@@ -1,3 +1,6 @@
+"""
+Api/App module
+"""
 import argparse
 
 from flask import Flask
