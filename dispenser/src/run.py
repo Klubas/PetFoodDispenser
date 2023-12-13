@@ -4,6 +4,7 @@ from threading import Thread
 from app import runApp, app
 from scheduler import run_schedules, test
 
+
 def signal_handler(signal, frame):
     print("Killing threads and exiting...")
     sys.exit(0)
