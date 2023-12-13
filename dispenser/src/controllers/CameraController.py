@@ -29,7 +29,8 @@ class Picture:
         self.filename = filename
 
     def show(self):
-        imshow(self.filename, self.image) 
+        imshow(self.filename, self.image)
+        print("Press any key to quit viewer")
         waitKey(0) 
         destroyWindow(self.filename) 
     
