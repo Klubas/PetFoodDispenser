@@ -1,11 +1,12 @@
 import os
 import glob
 from datetime import datetime
-from cv2 import VideoCapture, imshow, imwrite, waitKey, destroyWindow
+from cv2 import VideoCapture, imshow, imwrite, waitKey, destroyWindow, CAP_V4L2
+from config.Parameters import ENABLE_CAMERA
 
 def get_camera():
     for dev in reversed(glob.glob("/dev/video?")):
-        camera = VideoCapture(dev)
+        camera = VideoCapture(dev, CAP_V4L2)
         source = dev
         break
     
