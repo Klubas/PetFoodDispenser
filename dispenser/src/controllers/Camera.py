@@ -1,47 +1,24 @@
 """
 Camera test module
 """
-import os
 import glob
+import os
+from base64 import b64encode
 from datetime import datetime
-from base64 import b64decode, b64encode
 from subprocess import run, CalledProcessError
 
-from config.Parameters import PICTURE_DIR, CAMERA_DEVICE_PATH, DEBUG
+from controllers.Picture import Picture
+from config.Parameters import CAMERA_DEVICE_PATH, DEBUG
 
 
-class Picture:
-    def __init__(self, filename, base64string):
-        self.base64string = base64string
-        self.filename = filename
-
-    def save(self, filename=None, path=None):
-        path = PICTURE_DIR if path is None else path
-        filename = self.filename if filename is None else filename
-
-        try:
-            os.makedirs(path, exist_ok=True)
-            full_path = os.path.join(path, filename)
-
-            print("Converting base64 to binary")
-            with open(full_path, "wb") as image:
-                print("Writing file to " + str(full_path))
-                image.write(b64decode(self.base64string))
-
-            return full_path
-        except Exception as e:
-            print(e)
-            return None
-
-
-class CameraController:
+class Camera:
     def __init__(self):
         self.ffmpeg_path = "ffmpeg"
         self.frame = 1
         self.show_error = DEBUG
 
     @staticmethod
-    def __timestamp_():
+    def __timestamp__():
         now = datetime.now()
         dt_string = now.strftime("%Y-%m-%d %H:%M:%S%ms")
         return dt_string
@@ -84,7 +61,7 @@ class CameraController:
         if CAMERA_DEVICE_PATH:
             return CAMERA_DEVICE_PATH
 
-        for dev in glob.glob("/dev/v4l/by-id/usb-*"):
+        for dev in glob.glob("/dev/video?"):
             try:
                 self.__ffmpeg_capture__(dev)
                 return dev
@@ -94,8 +71,12 @@ class CameraController:
         raise Exception("No available cameras found")
 
     def capture(self):
-        filename = "capture-" + self.__timestamp_() + ".jpeg"
-        camera = self.get_camera()
+        filename = "capture-" + self.__timestamp__() + ".jpeg"
+        try:
+            camera = self.get_camera()
+        except Exception as e:
+            print(e)
+            return False
 
         try:
             base64string = self.__ffmpeg_capture__(camera)
@@ -109,7 +90,7 @@ class CameraController:
 
 
 if __name__ == "__main__":
-    cam = CameraController()
+    cam = Camera()
     pic = cam.capture()
 
     if pic:

@@ -7,7 +7,7 @@ if not EMULATED:
     import RPi.GPIO as GPIO
 
 
-class ServoControllerEmulated:
+class ServoEmulated:
     @staticmethod
     def rotate_to_angle(angle):
         # duty entre 2 e 12
@@ -25,7 +25,7 @@ class ServoControllerEmulated:
         print("Cleanup, exiting...")
 
 
-class ServoController:
+class Servo:
     def __init__(self, pin):
         self.pin = pin
         self.mode = GPIO.BOARD
@@ -53,10 +53,17 @@ class ServoController:
         print("Cleanup, exiting...")
 
 
-class ServoControllerFactory:
+class ServoFactory:
     @staticmethod
     def create(pin):
         if EMULATED:
-            return ServoControllerEmulated()
+            return ServoEmulated()
         else:
-            return ServoController(pin=pin)
+            return Servo(pin=pin)
+
+
+if __name__ == '__main__':
+    servo = ServoFactory().create(11)
+    servo.startup()
+    servo.rotate_to_angle(30)
+    servo.cleanup()

@@ -4,14 +4,14 @@ volumes:
   pictures:
 
 services:
-  dispenser:
+  pet-food-dispenser:
     build: ./dispenser
-    container_name: "dispenser"
+    container_name: "pet-food-dispenser"
     restart: "unless-stopped"
     privileged: true
     volumes:
       - pictures:/pictures
     ports:
-      - 80:80
+      - "80:80"
     labels:
       io.balena.features.supervisor-api: 1

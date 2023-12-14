@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
-from controllers.DispenserController import DispenserController as Dispenser
+from controllers.Dispenser import Dispenser
 
 
 class FoodDispenser(Resource):
@@ -15,13 +15,14 @@ class FoodDispenser(Resource):
         args = parser.parse_args()
 
         try:
-            Dispenser().dispense_food(open_angle=args.open_angle,
-                                      close_angle=args.close_angle,
-                                      open_seconds=args.open_seconds)
+            status, picture = Dispenser().dispense_food(open_angle=args.open_angle,
+                                                        close_angle=args.close_angle,
+                                                        open_seconds=args.open_seconds)
 
             response = {
                 'message': {
                     'status': 'SUCCESS',
+                    'picture': picture
                 }
             }
             return response, 200

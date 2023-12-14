@@ -7,8 +7,9 @@ from datetime import datetime
 
 import schedule
 
-from config.Parameters import SCHEDULE_TIMES, TZ, DEBUG, PICTURE_DIR, ENABLE_CAMERA
-from controllers.DispenserController import DispenserController as Dispenser
+from config.Parameters import SCHEDULE_TIMES, TZ, PICTURE_DIR, ENABLE_CAMERA, TELEGRAM_ENABLE
+from controllers.Dispenser import Dispenser as Dispenser
+from controllers.Telegram import TelegramBot
 
 
 def date_time():
@@ -25,6 +26,11 @@ def job():
 
 def purge_pictures():
     print("Running purge job")
+
+    if TELEGRAM_ENABLE:
+        bot = TelegramBot()
+        bot.send_text("Running purge job")
+
     for root, dirs, files in os.walk(PICTURE_DIR):
         for file in files:
             filepath = os.path.join(PICTURE_DIR, file)
