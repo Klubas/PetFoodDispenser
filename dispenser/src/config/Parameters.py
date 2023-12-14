@@ -1,4 +1,4 @@
-from os import getenv
+from os import getenv, path
 
 # API
 HOSTNAME = \
@@ -43,5 +43,8 @@ TZ = \
 ENABLE_CAMERA = \
     True if getenv('ENABLE_CAMERA', default=0) == "1" else False
 
+CAMERA_DEVICE_PATH = getenv('CAMERA_DEVICE_PATH', default=None)
+
 PICTURE_DIR = \
-    getenv('PICTURE_DIR', default='../../Pictures/')
+    getenv('PICTURE_DIR', default='./Pictures')
+PICTURE_DIR = path.abspath(PICTURE_DIR)

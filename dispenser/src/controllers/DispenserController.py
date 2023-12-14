@@ -25,7 +25,7 @@ class DispenserController:
 
         if ENABLE_CAMERA:
             print("Trying to take a picture...")
-            pic = Camera.capture()
+            pic = Camera().capture()
             if pic:
                 path = pic.save(path=PICTURE_DIR)
                 print("Picture saved at: " + path)
