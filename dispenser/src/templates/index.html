@@ -23,6 +23,12 @@
             cursor: pointer;
             font-size: 20px;
          }
+         input[type=button]:disabled, 
+         input[type=button]:disabled:hover{
+            border: 1px solid #999999;
+            background-color: #cccccc;
+            color: #666666;
+         }
          input[type=button]:hover {
             background-color: #45a049;
          }
@@ -56,12 +62,12 @@
             </form>
          </div>
          <div class="camera">
-            <img src="static/camera-512px.png" alt="Camera icon" width="450">
+            <img src="static/camera-512px.png" alt="Camera icon" width="450" id="picture-img"/>
          </div>
       </div>
    </body>
    <script>
-      const rootAddress = window.location.href 
+      const rootAddress = window.location.href
       
       console.log(rootAddress)
 
@@ -109,16 +115,20 @@
       const feed = (open_angle, close_angle, open_seconds) => {
          return callEndpoint('POST'
          , '/api/dispenser/feed?open_angle=' + open_angle + '&close_angle=' + close_angle + '&open_seconds=' + open_seconds)
+               .then(response => response.picture ? pictureImg.src = "data:image/jpeg;base64," + response.picture : null)
+               .then(response => buttonFeed.disabled = false)
       }
 
       submitFeed = (open_angle, close_angle, open_seconds) => {
-         feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)
+         buttonFeed.disabled = true
+         feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value).then()
       }
 
       const openAngleInput   = document.getElementById('open-angle-input')
       const closeAngleInput  = document.getElementById('close-angle-input')
       const openSecondsInput = document.getElementById('open-seconds-input')
       const buttonFeed       = document.getElementById('feed-button')
+      const pictureImg       = document.getElementById('picture-img')
 
       buttonFeed.addEventListener('click',
          function(){submitFeed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)}
