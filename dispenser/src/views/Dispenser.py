@@ -4,7 +4,65 @@ from config.Parameters import OPEN_SECONDS, OPEN_ANGLE, CLOSE_ANGLE
 from controllers.Dispenser import Dispenser
 
 
-class FoodDispenser(Resource):
+class Open(Resource):
+    @staticmethod
+    def post():
+        parser = reqparse.RequestParser()
+        parser.add_argument('open_angle', type=float, required=False, location='args', default=OPEN_ANGLE)
+
+        args = parser.parse_args()
+
+        try:
+
+            Dispenser().open(open_angle=args.open_angle)
+
+            response = {
+                'message': {
+                    'status': 'SUCCESS',
+                }
+            }
+            return response, 200
+        except Exception as e:
+            response = {
+                'message': {
+                    'status': 'ERROR',
+                    'response': str(e)
+                }
+            }
+            print(e)
+            return response, 500
+
+
+class Close(Resource):
+    @staticmethod
+    def post():
+        parser = reqparse.RequestParser()
+        parser.add_argument('close_angle', type=float, required=False, location='args', default=CLOSE_ANGLE)
+
+        args = parser.parse_args()
+
+        try:
+
+            Dispenser().close(close_angle=args.close_angle)
+
+            response = {
+                'message': {
+                    'status': 'SUCCESS',
+                }
+            }
+            return response, 200
+        except Exception as e:
+            response = {
+                'message': {
+                    'status': 'ERROR',
+                    'response': str(e)
+                }
+            }
+            print(e)
+            return response, 500
+
+
+class Feed(Resource):
     @staticmethod
     def post():
         parser = reqparse.RequestParser()

@@ -13,6 +13,22 @@ from controllers.Telegram import TelegramBot
 
 class Dispenser:
     @staticmethod
+    def open(open_angle=OPEN_ANGLE):
+        servo = Servo().create(pin=11)
+        servo.startup()
+        servo.rotate_to_angle(angle=open_angle)
+        print("Opened")
+        return True
+
+    @staticmethod
+    def close(close_angle=CLOSE_ANGLE):
+        servo = Servo().create(pin=11)
+        servo.startup()
+        servo.rotate_to_angle(angle=close_angle)
+        print("Closed")
+        return True
+
+    @staticmethod
     def dispense_food(open_angle=OPEN_ANGLE,
                       close_angle=CLOSE_ANGLE,
                       open_seconds=OPEN_SECONDS):
@@ -29,7 +45,9 @@ class Dispenser:
 
         servo.cleanup()
 
+        path = None
         base64string = None
+
         if ENABLE_CAMERA:
             print("Trying to take a picture...")
             pic = Camera().capture()
@@ -41,7 +59,7 @@ class Dispenser:
         if TELEGRAM_ENABLE:
             print("Sending pic to telegram chat")
             bot = TelegramBot()
-            if pic:
+            if base64string:
                 bot.send_picture(picture=open(path, 'rb'),
                                  caption='Hora de comer!')
             else:

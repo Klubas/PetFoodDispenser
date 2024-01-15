@@ -2,137 +2,37 @@
 <meta charset="UTF-8">
 <html>
    <head>
-      <style>
-         input[type=number], select {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-         }
-         input[type=button] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 20px;
-         }
-         input[type=button]:disabled, 
-         input[type=button]:disabled:hover{
-            border: 1px solid #999999;
-            background-color: #cccccc;
-            color: #666666;
-         }
-         input[type=button]:hover {
-            background-color: #45a049;
-         }
-         div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-         }
-         .box {
-            display: flex;
-         }
-         .camera {
-            justify-content: center;
-         }
-      </style>
+      <link rel="stylesheet" href="static/style.css"><link/>
    </head>
    <body>
-      <div class="box">
-         <div class="form">
-            <h1>PetFood-Dispenser</h1>
-            <form id="form">
-               <div>
-                  <label for="form">Abertura</label>
-                  <input type="number" id="open-angle-input" name="open-angle-input" value="30">
-                  <label for="form">Fechamento</label>
-                  <input type="number" id="close-angle-input" name="open-angle-input" value="0">
-                  <label for="form">Duração</label>
-                  <input type="number" id="open-seconds-input" name="open-angle-input" value="0.2">
-                  <input type="button" class="button feed" value="Comida!" id="feed-button">
+      <div>
+         <h1>PetFood-Dispenser</h1>
+         <form id="form">
+            <div>
+               <div class="box">
+                  <div>
+                     <label for="form">Abertura</label>
+                     <input type="number" id="open-angle-input" name="open-angle-input" value="30">
+                     <label for="form">Fechamento</label>
+                     <input type="number" id="close-angle-input" name="open-angle-input" value="0">
+                     <label for="form">Duração</label>
+                     <input type="number" id="open-seconds-input" name="open-angle-input" value="0.2">
+                  </div>
+                  <div class="camera">
+                     <img src="static/camera-512px.png" alt="Camera icon" id="picture-img" width="250"/>
+                  </div>
                </div>
-            </form>
-         </div>
-         <div class="camera">
-            <img src="static/camera-512px.png" alt="Camera icon" width="450" id="picture-img"/>
-         </div>
+               <div class="buttons">
+                  <input type="button" class="button feed" value="Comida!" id="feed-button">
+                  <div class="box">
+                     <input type="button" class="button" value="Abrir" id="open-button">
+                     <p>&nbsp;&nbsp;</p>
+                     <input type="button" class="button" value="Fechar" id="close-button">
+                  </div>
+               </div>
+            </div>
+         </form>
       </div>
    </body>
-   <script>
-      const rootAddress = window.location.href
-      
-      console.log(rootAddress)
-
-      const callEndpoint = async (method, endpoint, data = null) => {
-         const url = rootAddress + endpoint
-         const settings = {
-            method: method,
-            headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'text/html'
-            }
-         }
-
-         if (data){
-            settings.headers['Content-Type'] = 'application/json'
-            settings.body = JSON.stringify(data)
-         }
-
-         let response
-
-         await fetch(url, settings)
-            .then(response => response.json())
-            .then(jsonData => response = jsonData.message)
-         
-         try {
-            switch (response.status) {
-                  case 'SUCCESS':
-                     console.log("OK")
-                     return response
-                  case 'ERROR':
-                     console.log("ERROR")
-                     throw new Error('Unexpected error: ' + response.description)
-                  default:
-                     console.log(response)
-                     console.log("DEFAULT")
-                     throw new Error(response.response)
-            }
-         } catch (error) {
-            console.log(error)
-            console.log("CATCH")
-            throw new Error(error)
-         }    
-      }
-
-      const feed = (open_angle, close_angle, open_seconds) => {
-         return callEndpoint('POST'
-         , '/api/dispenser/feed?open_angle=' + open_angle + '&close_angle=' + close_angle + '&open_seconds=' + open_seconds)
-               .then(response => response.picture ? pictureImg.src = "data:image/jpeg;base64," + response.picture : null)
-               .then(response => buttonFeed.disabled = false)
-      }
-
-      submitFeed = (open_angle, close_angle, open_seconds) => {
-         buttonFeed.disabled = true
-         feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value).then()
-      }
-
-      const openAngleInput   = document.getElementById('open-angle-input')
-      const closeAngleInput  = document.getElementById('close-angle-input')
-      const openSecondsInput = document.getElementById('open-seconds-input')
-      const buttonFeed       = document.getElementById('feed-button')
-      const pictureImg       = document.getElementById('picture-img')
-
-      buttonFeed.addEventListener('click',
-         function(){submitFeed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)}
-      )
-
-   </script>
+   <script src="static/script.js">JS</script>
 </html>

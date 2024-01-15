@@ -8,7 +8,7 @@ from flask_cors import CORS
 from flask_restful import Api
 
 from config.Parameters import DEBUG, HOSTNAME, PORT, EXPLAIN_TEMPLATE_LOADING, DISABLE_ERROR_BUNDLE
-from views.Dispenser import FoodDispenser
+from views.Dispenser import Feed, Open, Close
 from views.Index import Index, Favicon
 
 app = Flask(__name__)
@@ -20,7 +20,9 @@ app.config['BUNDLE_ERRORS'] = not DISABLE_ERROR_BUNDLE
 api = Api(app)
 api.add_resource(Favicon, '/favicon.ico')
 api.add_resource(Index, '/')
-api.add_resource(FoodDispenser, '/api/dispenser/feed')
+api.add_resource(Open, '/api/dispenser/open')
+api.add_resource(Close, '/api/dispenser/close')
+api.add_resource(Feed, '/api/dispenser/feed')
 
 
 def runapp():

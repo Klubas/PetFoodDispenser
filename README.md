@@ -4,7 +4,7 @@
 | Variable       | Description                                        |
 |----------------|----------------------------------------------------|
 | OPEN_SECONDS   | Tempo que o dispensador ficará aberto              |
-| OPEN_ANGLE     | Angula de abertura                                 |
+| OPEN_ANGLE     | Angulo de abertura                                 |
 | CLOSE_ANGLE    | Angulo de fechamento                               |
 | SCHEDULE_TIMES | Horário de execução dos schedules (separado por ,) |
 | TZ             | Timezone                                           |

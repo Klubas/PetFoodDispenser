@@ -36,10 +36,11 @@ def purge_pictures():
             filepath = os.path.join(PICTURE_DIR, file)
             if os.path.getmtime(filepath) < datetime.now().timestamp() - 86400 * 7:
                 try:
-                    print("Deleting file " + filepath)
+                    print('Deleting file ' + filepath)
                     os.remove(filepath)
                 except (FileNotFoundError, Exception) as fnf:
-                    print("ERROR: File " + filepath + " not deleted")
+                    print('ERROR: File ' + filepath + ' not deleted')
+                    print(str(fnf))
 
 
 # Run schedules
