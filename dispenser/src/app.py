@@ -9,6 +9,7 @@ from flask_restful import Api
 
 from config.Parameters import DEBUG, HOSTNAME, PORT, EXPLAIN_TEMPLATE_LOADING, DISABLE_ERROR_BUNDLE
 from views.Dispenser import Feed, Open, Close
+from views.Camera import Device, Capture
 from views.Index import Index, Favicon
 
 app = Flask(__name__)
@@ -23,6 +24,8 @@ api.add_resource(Index, '/')
 api.add_resource(Open, '/api/dispenser/open')
 api.add_resource(Close, '/api/dispenser/close')
 api.add_resource(Feed, '/api/dispenser/feed')
+api.add_resource(Capture, '/api/camera/capture')
+api.add_resource(Device, '/api/camera')
 
 
 def runapp():

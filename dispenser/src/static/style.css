@@ -1,4 +1,7 @@
- input[type=number], select {
+/*
+ Styles
+*/
+input[type=number], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -6,9 +9,9 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
- }
+}
 
- input[type=button] {
+input[type=button] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -18,37 +21,57 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 20px;
- }
+}
 
- input[type=button]:disabled,
- input[type=button]:disabled:hover{
+input[type=button]:disabled,
+input[type=button]:disabled:hover{
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #666666;
- }
+}
 
- input[type=button]:hover {
+input[type=button]:hover {
     background-color: #45a049;
- }
+}
 
- div {
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+div {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
- }
+}
 
- .box {
+/* Ordenaçao */
+
+.button_feed{
+
+    justify-content: center;
+}
+
+.buttons_box{
     display: flex;
-    padding: 14px 20px;
-    justify-content: center;
-    margin: 8px 0;
- }
+}
 
-  .box2 {
-    padding: 14px 20px;
+.camera {
     justify-content: center;
- }
+    display: grid;
+}
 
- .camera {
-    justify-content: center;
- }
+@media (min-width: 960px) {
+    .input_box{
+        justify-content: center;
+        display: flex;
+
+    }
+}
+
+@media (min-width: 360px) and (max-width: 960px) {
+    .input_box{
+        justify-content: center;
+        display: grid;
+    }
+}

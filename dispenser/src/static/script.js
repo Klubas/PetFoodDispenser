@@ -65,12 +65,28 @@ const feed = (open_angle, close_angle, open_seconds) => {
            .then(response => buttonFeed.disabled = false)
 }
 
+const takePhoto = () => {
+     buttonPhoto.disabled = true
+     return callEndpoint('GET'
+     , '/api/camera/capture')
+           .then(response => response.picture ? pictureImg.src = "data:image/jpeg;base64," + response.picture : null)
+           .then(response => buttonPhoto.disabled = false)
+}
+
+const getCamera = () => {
+     buttonPhoto.disabled = true
+     return callEndpoint('GET'
+     , '/api/camera')
+           .then(response => response.device ? buttonPhoto.disabled = false : buttonPhoto.disabled = true)
+}
+
 const openAngleInput   = document.getElementById('open-angle-input')
 const closeAngleInput  = document.getElementById('close-angle-input')
 const openSecondsInput = document.getElementById('open-seconds-input')
 const buttonFeed       = document.getElementById('feed-button')
 const buttonOpen       = document.getElementById('open-button')
 const buttonClose      = document.getElementById('close-button')
+const buttonPhoto      = document.getElementById('photo-button')
 const pictureImg       = document.getElementById('picture-img')
 
 buttonOpen.addEventListener('click',
@@ -84,3 +100,9 @@ buttonClose.addEventListener('click',
 buttonFeed.addEventListener('click',
     function(){feed(openAngleInput.value, closeAngleInput.value, openSecondsInput.value)}
 )
+
+buttonPhoto.addEventListener('click',
+    function(){takePhoto()}
+)
+
+getCamera()
