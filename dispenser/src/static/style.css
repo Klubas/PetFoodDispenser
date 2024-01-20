@@ -61,7 +61,7 @@ div {
     display: grid;
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1919px) {
     .input_box{
         justify-content: center;
         display: flex;
@@ -69,7 +69,7 @@ div {
     }
 }
 
-@media (min-width: 360px) and (max-width: 960px) {
+@media (min-width: 640px) and (max-width: 1919px) {
     .input_box{
         justify-content: center;
         display: grid;

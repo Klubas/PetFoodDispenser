@@ -23,6 +23,33 @@ class Camera:
         dt_string = now.strftime("%Y-%m-%d %H:%M:%S%ms")
         return dt_string
 
+    """
+    @staticmethod
+    def __v4l2_capture__(self):
+        from PIL import Image
+        import select, v4l2capture
+        
+        video = v4l2capture.Video_device(Camera.video_source)
+        size_x = 640
+        size_y = 480
+        size_x, size_y = video.set_format(size_x, size_y)
+        video.create_buffers(1)
+        video.queue_all_buffers()
+        video.start()
+        bio = io.BytesIO()
+        try:
+            while True:
+                select.select((video,), (), ())  # Wait for the device to fill the buffer.
+                image_data = video.read_and_queue()
+                image = Image.frombytes("RGB", (size_x, size_y), image_data)
+                image.save(bio, format="jpeg")
+                yield bio.getvalue()
+                bio.seek(0)
+                bio.truncate()
+        finally:
+            video.close()
+    """
+
     def __ffmpeg_capture__(self, device, filename='capture.jpeg', filepath='/tmp'):
         """
         ffmpeg -f video4linux2 -i /dev/v4l/by-id/usb-*  -vframes 1 -video_size 640x480 test%3d.jpeg
