@@ -4,7 +4,7 @@ volumes:
   pictures:
 
 services:
-  food-dispenser:
+  pet-food-dispenser:
     build: ./dispenser
     container_name: "food-dispenser"
     restart: "unless-stopped"

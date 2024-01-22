@@ -1,0 +1,12 @@
+USB                             
+RED   - POWER +5V
+BLACK - GRD
+WHITE - DATA +/-
+GREEN - DATA +/-
+
+CAM 
+AZUL     - POWER 3.3V
+AMARELO  - GRD
+VERMELHO - DATA +/-
+VERDE    - DATA +/-
+BRANCO   - LED??

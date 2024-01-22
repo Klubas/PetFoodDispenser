@@ -3,9 +3,8 @@
 */
 input[type=number], select {
     width: 100%;
-    padding: 12px 20px;
+    padding: 15px 20px;
     margin: 8px 0;
-    display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -34,21 +33,28 @@ input[type=button]:hover {
     background-color: #45a049;
 }
 
+body {
+    background-color: #f2f2f2;
+}
+
 h1 {
     display: flex;
     justify-content: center;
 }
 
-div {
+div .box{
     border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
+    padding: 15px;
 }
+
+div .button_feed {
+    border-radius: 5px;
+}
+
 
 /* Ordenaçao */
 
 .button_feed{
-
     justify-content: center;
 }
 
@@ -63,9 +69,16 @@ div {
 
 @media (min-width: 1919px) {
     .input_box{
-        justify-content: center;
+        justify-content: space-evenly;
         display: flex;
+    }
 
+    img {
+        max-width: 400px;
+    }
+
+    div .form {
+        padding-top: 70px;
     }
 }
 
@@ -73,5 +86,25 @@ div {
     .input_box{
         justify-content: center;
         display: grid;
+    }
+
+    img {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 640px) {
+    .input_box{
+        justify-content: center;
+        display: grid;
+    }
+
+    img {
+        max-height: 220px;
+    }
+
+    div .box{
+        border-radius: 5px;
+        padding: 8px;
     }
 }
